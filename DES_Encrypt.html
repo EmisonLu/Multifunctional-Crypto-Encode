@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html class="small-scroll-bar no-js bg" lang="zh-cmn-Hans">
+
+<head style="position: sticky">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="UTF-8">
+    <!--IE 8浏览器的页面渲染方式-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <!--默认使用极速内核：针对国内浏览器产商-->
+    <meta name="renderer" content="webkit">
+    <!--chrome Android 地址栏颜色-->
+    <meta name="theme-color" content="#000000">
+
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+    <title>online</title>
+
+    <script type="text/javascript">
+
+        window['LocalConst'] = {
+            IS_PJAX: '1',
+            IS_PAJX_COMMENT: '1',
+            PJAX_ANIMATE: 'default',
+            PJAX_TO_TOP: 'auto',
+            TO_TOP_SPEED: '80',
+
+
+            USER_COMPLETED: { "data": "_hmt.push([\"_trackPageview\", document.location.pathname]);" },
+            VDITOR_COMPLETED: { "data": "" },
+
+            NO_SHOW_RIGHT_SIDE_IN_POST: '',
+
+            CDN_NAME: 'UPYUN',
+            LAZY_LOAD: '',
+            PAGE_ANIMATE: '',
+            THEME_COLOR: '14',
+            THEME_COLOR_EDIT: 'white-white-white',
+            THEME_HEADER_FIX: '1',
+            THEME_ASIDE_FIX: '1',
+            THEME_ASIDE_FOLDED: '',
+            THEME_ASIDE_DOCK: '',
+            THEME_CONTAINER_BOX: '1',
+            THEME_HIGHLIGHT_CODE: '1',
+            THEME_TOC: '1',
+            THEME_DARK_MODE: 'auto',
+            THEME_DARK_MODE_VALUE: 'auto',
+            SHOW_SETTING_BUTTON: '1',
+
+            THEME_DARK_HOUR: '18',
+            THEME_LIGHT_HOUR: '6',
+            THUMB_STYLE: 'normal',
+            AUTO_READ_MODE: '',
+            SHOW_LYRIC: '1',
+            AUTO_SHOW_LYRIC: '1',
+            THEME_POST_CONTENT: '1',
+            //other
+            OFF_SCROLL_HEIGHT: '55',
+            SHOW_IMAGE_ALT: '1',
+            USER_LOGIN: '',
+            USE_CACHE: '1',
+            POST_SPEECH: '1',
+            POST_MATHJAX: '',
+            SHOW_FOOTER: '1',
+            IS_TRANSPARENT: ''
+        };
+
+        if ('serviceWorker' in navigator) {
+            if (LocalConst.USE_CACHE) {
+                navigator.serviceWorker.register(LocalConst.BLOG_URL + 'sw.min.js?v=8.1.02021030201')
+                    .then(function (reg) {
+
+                    }).catch(function (error) {
+                        console.log('cache failed with ' + error); // registration failed
+                    });
+            } else {
+                navigator.serviceWorker.getRegistrations()
+                    .then(function (registrations) {
+                        for (var index in registrations) {
+                            registrations[index].unregister();
+                            // 清除缓存
+                            window.caches && caches.keys && caches.keys().then(function (keys) {
+                                keys.forEach(function (key) {
+                                    caches.delete(key);
+                                });
+                            });
+                            console.log("unregister success")
+                        }
+                    });
+            }
+        }
+    </script>
+
+    <!-- 第三方CDN加载CSS -->
+    <link href=" https://cdn.jsdelivr.net/gh/ihewro/handsome-static@8.1.0.1/assets/libs/bootstrap/css/bootstrap.min.css"
+        rel="stylesheet">
+    <!-- 本地css静态资源 -->
+    <link rel="stylesheet"
+        href=" https://cdn.jsdelivr.net/gh/ihewro/handsome-static@8.1.0.1/assets/css/origin/function.min.css?v=8.1.02021030201"
+        type="text/css">
+    <link rel="stylesheet"
+        href=" https://cdn.jsdelivr.net/gh/ihewro/handsome-static@8.1.0.1/assets/css/handsome.min.css?v=8.1.02021030201"
+        type="text/css">
+    <!--引入英文字体文件-->
+    <link rel="stylesheet preload"
+        href=" https://cdn.jsdelivr.net/gh/ihewro/handsome-static@8.1.0.1/assets/css/features/font.min.css?v=8.1.02021030201"
+        as="style">
+
+    <style type="text/css">
+        html.bg {
+            background: #EFEFEF
+        }
+
+        .cool-transparent .off-screen+* .app-content-body {
+            background: #EFEFEF
+        }
+
+        @media (max-width:767px) {
+            html.bg {
+                background: #EFEFEF
+            }
+
+            .cool-transparent .off-screen+* .app-content-body {
+                background: #EFEFEF
+            }
+        }
+
+        figcaption.post-img-figcaption:not(.post-img-figcation) {
+            display: none;
+        }
+
+        @media screen and (max-width: 370px) {
+            .album-thumb {
+                width: 100%;
+            }
+        }
+
+        #aside .wrapper:hover {
+            background: url(https://cdn.jsdelivr.net/gh/ihewro/handsome-static@8.1.0.1/assets/img/snow.gif);
+            background-size: cover;
+            color: #999;
+        }
+    </style>
+    <script src=" https://cdn.jsdelivr.net/gh/ihewro/handsome-static@8.1.0.1/assets/libs/jquery/jquery.min.js"></script>
+
+</head>
+
+<body id="body" class="fix-padding skt-loading" data-new-gr-c-s-check-loaded="14.997.0" data-gr-ext-installed="">
+    <!-- aside -->
+    <div id="alllayout" class="app app-aside-fix container app-header-fixed">
+        <header id="header" class="app-header navbar box-shadow-bottom-lg" role="menu">
+            <div class="text-ellipsis navbar-header bg-white">
+                <p style="font-size:250%">&nbsp;&nbsp;POWER</p>
+            </div>
+            <div class="collapse pos-rlt navbar-collapse bg-white">
+            </div>
+        </header>
+
+        <aside id="aside" class="app-aside hidden-xs bg-white">
+            <!--<aside>-->
+            <div class="aside-wrap" layout="column">
+                <div class="navi-wrap scroll-y scroll-hide" flex="">
+                    <nav ui-nav="" class="navi clearfix" style="font-size: 115%">
+                        <ul class="nav">
+                            <br>
+                            <br>
+                            <li> <a target="_self" href="home.html" class="auto"><span
+                                        class="nav-icon"></span><span>首页</span></a></li>
+                            <li> <a target="_self" href="" class="auto"><span class="pull-right text-muted">
+                                        <i class="fontello icon-fw fontello-angle-right text"></i>
+                                        <i class="fontello icon-fw fontello-angle-down text-active"></i>
+                                    </span><span class="nav-icon"></span><span>RSA</span></a>
+                                <ul class="nav nav-sub dk">
+                                    <li> <a target="_self" href="RSA_key_Generate.html" class="auto"><span
+                                                class="nav-icon"></span><span>生成密钥对</span></a></li>
+                                    <li> <a target="_self" href="RSA_Encrypt.html" class="auto"><span
+                                                class="nav-icon"></span><span>加密</span></a></li>
+                                    <li> <a target="_self" href="RSA_Decrypt.html" class="auto"><span
+                                                class="nav-icon"></span><span>解密</span></a></li>
+                                </ul>
+                            </li>
+                            <li> <a target="_self" href="" class="auto"><span class="pull-right text-muted">
+                                        <i class="fontello icon-fw fontello-angle-right text"></i>
+                                        <i class="fontello icon-fw fontello-angle-down text-active"></i>
+                                    </span><span class="nav-icon"></span><span>AES</span></a>
+                                <ul class="nav nav-sub dk">
+                                    <!-- <li> <a target="_self" href="RSA_key_Generate.html" class="auto"><span
+                                                class="nav-icon"></span><span>生成密钥对</span></a></li> -->
+                                    <li> <a target="_self" href="AES_Encrypt.html" class="auto"><span
+                                                class="nav-icon"></span><span>加密</span></a></li>
+                                    <li> <a target="_self" href="AES_Decrypt.html" class="auto"><span
+                                                class="nav-icon"></span><span>解密</span></a></li>
+                                </ul>
+                            </li>
+                            <li> <a target="_self" href="" class="auto"><span class="pull-right text-muted">
+                                        <i class="fontello icon-fw fontello-angle-right text"></i>
+                                        <i class="fontello icon-fw fontello-angle-down text-active"></i>
+                                    </span><span class="nav-icon"></span><span>DES</span></a>
+                                <ul class="nav nav-sub dk">
+                                    <!-- <li> <a target="_self" href="RSA_key_Generate.html" class="auto"><span
+                                class="nav-icon"></span><span>生成密钥对</span></a></li> -->
+                                    <li> <a target="_self" href="DES_Encrypt.html" class="auto"><span
+                                                class="nav-icon"></span><span>加密</span></a></li>
+                                    <li> <a target="_self" href="DES_Decrypt.html" class="auto"><span
+                                                class="nav-icon"></span><span>解密</span></a></li>
+                                </ul>
+                            </li>
+                            <li> <a target="_self" href="" class="auto"><span class="pull-right text-muted">
+                                        <i class="fontello icon-fw fontello-angle-right text"></i>
+                                        <i class="fontello icon-fw fontello-angle-down text-active"></i>
+                                    </span><span class="nav-icon"></span><span>3DES</span></a>
+                                <ul class="nav nav-sub dk">
+                                    <!-- <li> <a target="_self" href="RSA_key_Generate.html" class="auto"><span
+                                class="nav-icon"></span><span>生成密钥对</span></a></li> -->
+                                    <li> <a target="_self" href="3DES_Encrypt.html" class="auto"><span
+                                                class="nav-icon"></span><span>加密</span></a></li>
+                                    <li> <a target="_self" href="3DES_Decrypt.html" class="auto"><span
+                                                class="nav-icon"></span><span>解密</span></a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </aside>
+        <!-- content -->
+        <div id="content" class="app-content">
+
+            <a class="off-screen-toggle hide"></a>
+            <main class="app-content-body ">
+                <div class="hbox hbox-auto-xs">
+                    <div class="col center-part">
+
+                        <div class="wrapper-md skt-loading" id="post-panel" style="font-size:110%">
+                            <div class="blog-post post-list" align="center">
+                                <span>选择明文格式:&nbsp;</span>
+                                <select id="format" value="1" style="margin-right:20px">
+                                    <option value="1">utf8</option>
+                                    <option value="2">base64</option>
+                                    <option value="3">hex</option>
+                                    <!-- CFB, OFB, CTR, and GCM -->
+                                </select>
+                                <span>选择加密标准:&nbsp;</span>
+                                <select id="standard" value="1" style="margin-right:20px">
+                                    <option value="1">CBC</option>
+                                    <option value="2">ECB</option>
+                                </select>
+                                <span>选择输出密文格式:&nbsp;</span>
+                                <select id="encrypt_out" value="1" style="margin-right:20px">
+                                    <option value="1">base64</option>
+                                    <option value="2">hex</option>
+                                </select>
+                                <br>
+                                <br>
+                                <!-- <br> -->
+                                <!-- <span>选择密钥长度:&nbsp;</span>
+                                <select id="key_length" value="1" style="margin-right:20px">
+                                    <option value="1">128bits</option>
+                                    <option value="2">192bits</option>
+                                    <option value="3">256bits</option>
+                                </select> -->
+                                <span>选择密钥格式:&nbsp;</span>
+                                <select id="key_style" value="1" style="margin-right:20px">
+                                    <option value="1">utf8</option>
+                                    <option value="2">base64</option>
+                                    <option value="3">hex</option>
+                                </select>
+                                <span>选择iv格式:&nbsp;</span>
+                                <select id="iv_style" value="1" style="margin-right:20px">
+                                    <option value="1">utf8</option>
+                                    <option value="2">base64</option>
+                                    <option value="3">hex</option>
+                                </select>
+                                <br>
+                                <br>
+                                <textarea id="mingwen" spellcheck="false" placeholder="请在此输入明文" class="form-control"
+                                    style="width: 700px; height: 200px; margin-bottom: 20px;font-size: 110%;"></textarea>
+                                <div align="center" style="margin-left: 106px;">
+                                    <textarea id="key" spellcheck="false" placeholder="请在此输入key" class="form-control"
+                                        style="width: 334px; height: 200px; margin-bottom: 20px;font-size: 110%;float:left;margin-right:30px"></textarea>
+                                    <textarea id="iv" spellcheck="false" placeholder="请在此输入iv" class="form-control"
+                                        style="width: 334px; height: 200px; margin-bottom: 20px;font-size: 110%;float: left;"></textarea>
+                                </div>
+                                <br style="clear:both">
+                                <button type="button" onclick="encrypt_func()">加密</button>
+                                <br>
+                                <br>
+                                <textarea id="miwen" spellcheck="false" placeholder="生成的密文将在此显示" class="form-control"
+                                    style="width: 700px; height: 200px; margin-bottom: 20px;font-size: 110%;"></textarea>
+                            </div>
+
+                            <style>
+                                .page-navigator>li>a,
+                                .page-navigator>li>span {
+                                    line-height: 1.42857143;
+                                    padding: 6px 12px;
+                                }
+                            </style>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div><!-- /content -->
+
+        <footer id="footer" class="app-footer" role="footer">
+            <div class="wrapper bg-light">
+                <span class="pull-right hidden-xs text-ellipsis">
+                    <a href="#" target="_blank">SJTU Emison Lu</a>
+                </span>
+                <span class="text-ellipsis"></span>
+            </div>
+
+        </footer>
+    </div>
+
+    <script
+        src=" https://cdn.jsdelivr.net/gh/ihewro/handsome-static@8.1.0.1/assets/js/function.min.js?v=8.1.02021030201"></script>
+    <script
+        src=" https://cdn.jsdelivr.net/gh/ihewro/handsome-static@8.1.0.1/assets/js/core.min.js?v=8.1.02021030201"></script>
+
+
+    <!--主题组件js加载-->
+    <script src=" https://cdn.jsdelivr.net/gh/ihewro/handsome-static@8.1.0.1/assets/js/features/jquery.pjax.min.js"
+        type="text/javascript"></script>
+    <!--用户自定义js-->
+    <script type="text/javascript">
+        var _hmt = _hmt || []; (function () { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?3b1f6198215a81b2f56b1387c009c48f"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s); })();</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/node-forge@0.7.0/dist/forge.min.js"></script>
+    <script src=" https://cdn.jsdelivr.net/gh/ihewro/handsome-static@8.1.0.1/assets/libs/jquery/jquery.min.js"></script>
+
+    <script>
+        function encrypt_func() {
+            var format = document.getElementById("format").value;
+            var standard = document.getElementById("standard").value;
+            var encrypt_out = document.getElementById("encrypt_out").value;
+            var miwen = document.getElementById("miwen");
+
+            var mingwen = document.getElementById("mingwen").value;
+            console.log(mingwen);
+
+            var key = document.getElementById("key").value;
+            console.log(key);
+            var iv = document.getElementById("iv").value;
+            console.log(iv);
+
+            if (format === "2") {
+                mingwen = atob(mingwen);
+            } else if (format === "3") {
+                mingwen = hex2str(mingwen);
+            }
+
+            if (standard === "1") {
+                standard = 'DES-CBC';
+            } else {
+                standard = 'DES-ECB';
+            }
+            console.log(standard);
+
+            var key_style = document.getElementById("key_style").value;
+            var iv_style = document.getElementById("iv_style").value;
+
+            if (key_style === "2") {
+                key = atob(key);
+            } else if (key_style === "3") {
+                key = hex2str(key);
+            }
+            if (iv_style === "2") {
+                iv = atob(iv);
+            } else if (iv_style === "3") {
+                iv = hex2str(iv);
+            }
+
+            // var key_length = document.getElementById("key_length").value;
+
+            if (iv.length !== 8) {
+                alert("iv长度有误！");
+                return;
+            }
+            // console.log(key.length);
+            // console.log(key_length);
+
+            if (key.length !== 8) {
+                alert("密钥长度有误！");
+                return;
+            }
+
+            var cipher = forge.cipher.createCipher(standard, key);
+            cipher.start({ iv: iv });
+            cipher.update(forge.util.createBuffer(mingwen));
+            cipher.finish();
+            var encrypted = cipher.output;
+            var result = encrypted.data;
+            console.log(result);
+
+            if (encrypt_out === "1") {
+                miwen.innerHTML = btoa(result);
+            } else {
+                miwen.innerHTML = str2hex(result);
+            }
+            return;
+        }
+
+        function bin2String(array) {
+            return String.fromCharCode.apply(String, array);
+        }
+
+        function string2Bin(str) {
+            var result = [];
+            for (var i = 0; i < str.length; i++) {
+                result.push(str.charCodeAt(i));
+            }
+            return result;
+        }
+
+        function hex2str(hex) {
+            var trimedStr = hex.trim();
+            var rawStr = trimedStr.substr(0, 2).toLowerCase() === "0x" ? trimedStr.substr(2) : trimedStr;
+            var len = rawStr.length;
+            if (len % 2 !== 0) {
+                alert("Illegal Format ASCII Code!");
+                return "";
+            }
+            var curCharCode;
+            var resultStr = [];
+            for (var i = 0; i < len; i = i + 2) {
+                curCharCode = parseInt(rawStr.substr(i, 2), 16);
+                resultStr.push(String.fromCharCode(curCharCode));
+            }
+            return resultStr.join("");
+        }
+
+        // 字符串转16进制
+        function str2hex(str) {
+            if (str === "") {
+                return "";
+            }
+            var arr = [];
+            arr.push("0x");
+            for (var i = 0; i < str.length; i++) {
+                arr.push(str.charCodeAt(i).toString(16));
+            }
+            return arr.join('');
+        }
+    </script>
+</body>
+
+</html>
