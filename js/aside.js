@@ -80,7 +80,10 @@ var aside_str =
   "</li> " +
   '<li> <a target="_self" href="JSON.html" class="auto"><span ' +
   'class="nav-icon"></span><span>JSON</span></a></li> ' +
-  "</ul> " +
+  '<li> <a target="_self" href="Encode_Decode.html" class="auto"><span ' +
+  'class="nav-icon"></span><span>Encode/Decode</span></a></li> ' +
+  '<li> <a target="_self" href="Base_Conversion.html" class="auto"><span ' +
+  'class="nav-icon"></span><span>Base Conversion</span></a></li> ' +
   "</nav> " +
   "</div> " +
   "</div>";

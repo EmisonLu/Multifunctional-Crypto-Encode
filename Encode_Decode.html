@@ -33,7 +33,6 @@
         as="style">
 
     <style type="css/main.css"></style>
-
     <script src=" https://cdn.jsdelivr.net/gh/ihewro/handsome-static@8.1.0.1/assets/libs/jquery/jquery.min.js"></script>
 
 </head>
@@ -55,29 +54,34 @@
                     <div class="col center-part">
 
                         <div class="wrapper-md skt-loading" id="post-panel" style="font-size:110%">
-
                             <div class="blog-post post-list" align="center">
-                                <!-- <span>选择密钥位数:&nbsp;</span>
-                                <select id="bitLength" value="1" style="margin-right:20px">
-                                    <option value="1">512位</option>
-                                    <option value="2">1024位</option>
-                                    <option value="3">2048位</option>
-                                    <option value="4">4096位</option>
-                                </select> -->
+                                <span>选择编码方式:&nbsp;</span>
+                                <select id="yuan" value="1" style="margin-right:20px">
+                                    <option value="1">utf8</option>
+                                    <option value="2">base64</option>
+                                    <option value="3">hex</option>
+                                    <option value="4">url</option>
+                                </select>
 
-                                <!-- <button type="button" onclick="generate()">Generate key pair</button> -->
-                                <!-- <br> -->
-                                <!-- <br> -->
-                                <textarea id="str" spellcheck="false"
-                                    placeholder="请在此输入数据&#10;&#10;Object数据请以如下格式输入：&#10;&#10;对象名:数据,&#10;对象名:数据,&#10;......"
-                                    class="form-control"
+                                <span>选择转换后的编码方式:&nbsp;</span>
+                                <select id="hou" value="1" style="margin-right:20px">
+                                    <option value="1">utf8</option>
+                                    <option value="2">base64</option>
+                                    <option value="3">hex</option>
+                                    <option value="4">url</option>
+                                </select>
+                                <br>
+                                <br>
+                                <textarea id="ru" spellcheck="false" placeholder="请在此输入数据" class="form-control"
                                     style="width: 700px; height: 200px; margin-bottom: 20px;font-size: 110%;"></textarea>
-                                <button type="button" onclick="str_to_json()">格式化为JSON</button>
-                                <button type="button" onclick="json_to_str()">JSON转实体类</button>
+                                <!-- <textarea id="miyao" spellcheck="false" placeholder="请在此输入密钥" class="form-control"
+                                    style="width: 700px; height: 200px; margin-bottom: 20px;font-size: 110%;"></textarea> -->
+
+                                <button type="button" onclick="func()">转换</button>
                                 <br>
                                 <br>
-                                <textarea id="json" spellcheck="false" placeholder="格式转换后的数据将在此显示" class="form-control"
-                                    style="width: 700px; height: 500px;font-size: 110%;"></textarea>
+                                <textarea id="chu" spellcheck="false" placeholder="编码转换后的数据将在此显示" class="form-control"
+                                    style="width: 700px; height: 200px; margin-bottom: 20px;font-size: 110%;"></textarea>
                             </div>
 
                             <style>
@@ -107,6 +111,7 @@
     <script src=" https://cdn.jsdelivr.net/gh/ihewro/handsome-static@8.1.0.1/assets/js/features/jquery.pjax.min.js"
         type="text/javascript"></script>
 
+
     <script src="https://cdn.jsdelivr.net/npm/node-forge@0.7.0/dist/forge.min.js"></script>
     <script src=" https://cdn.jsdelivr.net/gh/ihewro/handsome-static@8.1.0.1/assets/libs/jquery/jquery.min.js"></script>
     <script src="js/Function.js"></script>
@@ -115,47 +120,67 @@
     <script src="js/header.js"></script>
 
     <script>
-        function str_to_json() {
-            "use strict";
+        function func() {
+            var yuan = document.getElementById("yuan").value;
+            var hou = document.getElementById("hou").value;
 
-            var a = document.getElementById("str").value;
+            var ru = document.getElementById("ru").value;
+            var chu = document.getElementById("chu");
 
-            a = a.replaceAll(":", "\":\"");
-            a = a.replaceAll(",\n", "\",\"");
+            var str;
 
-            a = "{\"" + a + "\"}";
-            a = a.replaceAll("\"\"", "\"");
-            a = a.replaceAll("\"'", "\"");
-            a = a.replaceAll("'\"", "\"");
-
-            var json = document.getElementById("json");
-            // console.log(b);
-
-            json.innerHTML = a;
-        }
-
-        function json_to_str() {
-            "use strict";
-
-            var a = document.getElementById("str").value;
-            try {
-                var b = JSON.parse(a);
-            } catch (e) {
-                alert("输入格式有误！");
-                return;
+            if (yuan === '1') {
+                str = ru;
+            } else if (yuan === "2") {
+                try {
+                    str = atob(ru);
+                } catch (e) {
+                    alert("输入数据格式有误");
+                    return;
+                }
+            } else if (yuan === "3") {
+                try {
+                    str = hex2str(ru);
+                } catch (e) {
+                    alert("输入数据格式有误");
+                    return;
+                }
+            } else if (yuan === "4") {
+                try {
+                    str = decodeURI(ru);
+                } catch (e) {
+                    alert("输入数据格式有误");
+                    return;
+                }
             }
-            console.log(b);
+            console.log(str);
 
-            var html_str = "{\n"
-
-            for (let s in b) {
-                html_str = html_str + "     " + s + ": " + b[s] + "\n";
+            var a;
+            if (hou === '1') {
+                a = str;
+            } else if (hou === "2") {
+                try {
+                    a = btoa(str);
+                } catch (e) {
+                    alert("输入数据格式有误");
+                    return;
+                }
+            } else if (hou === "3") {
+                try {
+                    a = str2hex(str);
+                } catch (e) {
+                    alert("输入数据格式有误");
+                    return;
+                }
+            } else if (hou === "4") {
+                try {
+                    a = encodeURI(str);
+                } catch (e) {
+                    alert("输入数据格式有误");
+                    return;
+                }
             }
-            html_str = html_str + "}\n"
-            var json = document.getElementById("json");
-            // console.log(b);
-
-            json.innerHTML = html_str;
+            chu.innerHTML = a;
         }
     </script>
 </body>
