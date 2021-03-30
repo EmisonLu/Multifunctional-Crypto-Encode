@@ -1,0 +1,33 @@
+html.bg {
+    background: #EFEFEF
+}
+
+.cool-transparent .off-screen+* .app-content-body {
+    background: #EFEFEF
+}
+
+@media (max-width:767px) {
+    html.bg {
+        background: #EFEFEF
+    }
+
+    .cool-transparent .off-screen+* .app-content-body {
+        background: #EFEFEF
+    }
+}
+
+figcaption.post-img-figcaption:not(.post-img-figcation) {
+    display: none;
+}
+
+@media screen and (max-width: 370px) {
+    .album-thumb {
+        width: 100%;
+    }
+}
+
+#aside .wrapper:hover {
+    background: url(https://cdn.jsdelivr.net/gh/ihewro/handsome-static@8.1.0.1/assets/img/snow.gif);
+    background-size: cover;
+    color: #999;
+}
