@@ -184,7 +184,7 @@
                                     </span><span class="nav-icon"></span><span>AES</span></a>
                                 <ul class="nav nav-sub dk">
                                     <!-- <li> <a target="_self" href="RSA_key_Generate.html" class="auto"><span
-                                                class="nav-icon"></span><span>Generate key pair</span></a></li> -->
+                                        class="nav-icon"></span><span>Generate key pair</span></a></li> -->
                                     <li> <a target="_self" href="AES_Encrypt.html" class="auto"><span
                                                 class="nav-icon"></span><span>Encrypt</span></a></li>
                                     <li> <a target="_self" href="AES_Decrypt.html" class="auto"><span
@@ -253,36 +253,29 @@
                     <div class="col center-part">
 
                         <div class="wrapper-md skt-loading" id="post-panel" style="font-size:110%">
-                            <div class="blog-post post-list" align="center">
-                                <span>选择数据格式:&nbsp;</span>
-                                <select id="format" value="1" style="margin-right:20px">
-                                    <option value="1">utf8</option>
-                                    <option value="2">base64</option>
-                                    <option value="3">hex</option>
-                                </select>
-                                <!-- <span>选择Encrypt标准:&nbsp;</span>
-                                <select id="standard" value="1" style="margin-right:20px">
-                                    <option value="1">RSAES-PKCS1-V1_5</option>
-                                    <option value="2">RSA-OAEP</option>
-                                </select> -->
-                                <span>选择输出HASH格式:&nbsp;</span>
-                                <select id="encrypt_out" value="1" style="margin-right:20px">
-                                    <option value="1">hex</option>
-                                    <option value="2">utf8</option>
-                                    <option value="3">base64</option>
-                                </select>
-                                <br>
-                                <br>
-                                <textarea id="mingwen" spellcheck="false" placeholder="请在此输入数据" class="form-control"
-                                    style="width: 700px; height: 200px; margin-bottom: 20px;font-size: 110%;"></textarea>
-                                <!-- <textarea id="miyao" spellcheck="false" placeholder="请在此输入密钥" class="form-control"
-                                    style="width: 700px; height: 200px; margin-bottom: 20px;font-size: 110%;"></textarea> -->
 
-                                <button type="button" onclick="encrypt_func()">HASH</button>
-                                <br>
-                                <br>
-                                <textarea id="miwen" spellcheck="false" placeholder="生成的HASH将在此显示" class="form-control"
+                            <div class="blog-post post-list" align="center">
+                                <!-- <span>选择密钥位数:&nbsp;</span>
+                                <select id="bitLength" value="1" style="margin-right:20px">
+                                    <option value="1">512位</option>
+                                    <option value="2">1024位</option>
+                                    <option value="3">2048位</option>
+                                    <option value="4">4096位</option>
+                                </select> -->
+
+                                <!-- <button type="button" onclick="generate()">Generate key pair</button> -->
+                                <!-- <br> -->
+                                <!-- <br> -->
+                                <textarea id="str" spellcheck="false"
+                                    placeholder="请在此输入数据&#10;&#10;Object数据请以如下格式输入：&#10;&#10;对象名:数据,&#10;对象名:数据,&#10;......"
+                                    class="form-control"
                                     style="width: 700px; height: 200px; margin-bottom: 20px;font-size: 110%;"></textarea>
+                                <button type="button" onclick="str_to_json()">格式化为JSON</button>
+                                <button type="button" onclick="json_to_str()">JSON转实体类</button>
+                                <br>
+                                <br>
+                                <textarea id="json" spellcheck="false" placeholder="格式转换后的数据将在此显示" class="form-control"
+                                    style="width: 700px; height: 500px;font-size: 110%;"></textarea>
                             </div>
 
                             <style>
@@ -322,82 +315,54 @@
     <script type="text/javascript">
         var _hmt = _hmt || []; (function () { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?3b1f6198215a81b2f56b1387c009c48f"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s); })();</script>
 
+
     <script src="https://cdn.jsdelivr.net/npm/node-forge@0.7.0/dist/forge.min.js"></script>
     <script src=" https://cdn.jsdelivr.net/gh/ihewro/handsome-static@8.1.0.1/assets/libs/jquery/jquery.min.js"></script>
 
     <script>
-        function encrypt_func() {
-            var format = document.getElementById("format").value;
-            var encrypt_out = document.getElementById("encrypt_out").value;
-            var miwen = document.getElementById("miwen");
+        function str_to_json() {
+            "use strict";
 
-            var mingwen = document.getElementById("mingwen").value;
-            console.log(mingwen);
+            var a = document.getElementById("str").value;
 
-            if (format === "2") {
-                mingwen = atob(mingwen);
-            } else if (format === "3") {
-                mingwen = hex2str(mingwen);
-            }
+            a.replace(":", "n");
+            a.replace(",\n", "\",\"");
+            console.log(a);
+            var str = {
+                a: 123,
+                b: 456
+            };
 
-            var key;
-            var result;
+            var a = JSON.stringify(str)
+            console.log(a);
 
-            var md = forge.md.sha512.create();
-            md.update(mingwen);
-            // console.log(md.digest());
-            result = md.digest().data;
-            if (encrypt_out === "2"){
-                miwen.innerHTML = result;
-            }else if (encrypt_out === "3") {
-                miwen.innerHTML = btoa(result);
-            } else {
-                miwen.innerHTML = md.digest().toHex();
-            }
-            return;
+            var b = JSON.parse(a);
+            console.log(b);
 
         }
 
-        function bin2String(array) {
-            return String.fromCharCode.apply(String, array);
-        }
+        function json_to_str() {
+            "use strict";
 
-        function string2Bin(str) {
-            var result = [];
-            for (var i = 0; i < str.length; i++) {
-                result.push(str.charCodeAt(i));
+            var a = document.getElementById("str").value;
+            try {
+                var b = JSON.parse(a);
+            } catch (e) {
+                alert("输入格式有误！");
+                return;
             }
-            return result;
-        }
+            console.log(b);
 
-        function hex2str(hex) {
-            var trimedStr = hex.trim();
-            var rawStr = trimedStr.substr(0, 2).toLowerCase() === "0x" ? trimedStr.substr(2) : trimedStr;
-            var len = rawStr.length;
-            if (len % 2 !== 0) {
-                alert("Illegal Format ASCII Code!");
-                return "";
-            }
-            var curCharCode;
-            var resultStr = [];
-            for (var i = 0; i < len; i = i + 2) {
-                curCharCode = parseInt(rawStr.substr(i, 2), 16);
-                resultStr.push(String.fromCharCode(curCharCode));
-            }
-            return resultStr.join("");
-        }
+            var html_str = "{\n"
 
-        // 字符串转16进制
-        function str2hex(str) {
-            if (str === "") {
-                return "";
+            for (let s in b) {
+                html_str = html_str + "     " + s + ": " + b[s] + "\n";
             }
-            var arr = [];
-            arr.push("0x");
-            for (var i = 0; i < str.length; i++) {
-                arr.push(str.charCodeAt(i).toString(16));
-            }
-            return arr.join('');
+            html_str = html_str + "}\n"
+            var json = document.getElementById("json");
+            // console.log(b);
+
+            json.innerHTML = html_str;
         }
     </script>
 </body>
