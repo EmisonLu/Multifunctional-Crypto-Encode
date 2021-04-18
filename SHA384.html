@@ -125,13 +125,14 @@
 
     <script>
         function encrypt_func() {
+            // 获取DOM节点
             var format = document.getElementById("format").value;
             var encrypt_out = document.getElementById("encrypt_out").value;
             var miwen = document.getElementById("miwen");
-
             var mingwen = document.getElementById("mingwen").value;
             console.log(mingwen);
 
+            // 处理输入数据格式
             if (format === "2") {
                 mingwen = atob(mingwen);
             } else if (format === "3") {
@@ -141,10 +142,13 @@
             var key;
             var result;
 
+            // 执行hash运算
             var md = forge.md.sha384.create();
             md.update(mingwen);
             // console.log(md.digest());
             result = md.digest().data;
+
+            // 处理输出格式
             if (encrypt_out === "2"){
                 miwen.innerHTML = result;
             }else if (encrypt_out === "3") {

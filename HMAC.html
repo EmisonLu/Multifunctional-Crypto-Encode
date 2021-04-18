@@ -134,23 +134,25 @@
 
     <script>
         function encrypt_func() {
+            // 获取DOM节点
             var format = document.getElementById("format").value;
             var standard = 'SHA1';
             var encrypt_out = document.getElementById("encrypt_out").value;
             var miwen = document.getElementById("miwen");
-
             var mingwen = document.getElementById("mingwen").value;
             console.log(mingwen);
-
             var key = document.getElementById("miyao").value;
             console.log(key);
 
+            // 处理输入数据格式
             if (format === "2") {
                 mingwen = atob(mingwen);
             } else if (format === "3") {
                 mingwen = hex2str(mingwen);
             }
             var a = document.getElementById("standard").value;
+
+            // 处理选择的hash算法
             if (a === "1") {
                 standard = 'sha1';
             } else if (a === "2") {
@@ -166,18 +168,21 @@
 
             var key_style = document.getElementById("key_style").value;
 
+            // 处理输入密钥格式
             if (key_style === "2") {
                 key = atob(key);
             } else if (key_style === "3") {
                 key = hex2str(key);
             }
 
+            // 进行HMAC运算
             var result;
             var hmac = forge.hmac.create();
             hmac.start(standard, key);
             hmac.update(mingwen);
             result = hmac.digest().data;         
 
+            // 处理输出格式
             if (encrypt_out === "1"){
                 miwen.innerHTML = hmac.digest().toHex();
             }else if (encrypt_out === "3") {

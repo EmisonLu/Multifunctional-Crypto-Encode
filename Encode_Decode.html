@@ -123,6 +123,7 @@
 
     <script>
         function func() {
+            // 获取DOM节点
             var yuan = document.getElementById("yuan").value;
             var hou = document.getElementById("hou").value;
 
@@ -131,6 +132,7 @@
 
             var str;
 
+            // 处理输入数据格式
             if (yuan === '1') {
                 str = ru;
             } else if (yuan === "2") {
@@ -157,6 +159,7 @@
             }
             console.log(str);
 
+            // 处理输出数据格式
             var a;
             if (hou === '1') {
                 a = str;

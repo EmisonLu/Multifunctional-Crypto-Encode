@@ -120,6 +120,7 @@
         function str_to_json() {
             "use strict";
 
+            // 获取DOM节点
             var a = document.getElementById("str").value;
 
             a = a.replaceAll(":", "\":\"");
@@ -139,6 +140,7 @@
         function json_to_str() {
             "use strict";
 
+            // 获取DOM节点
             var a = document.getElementById("str").value;
             try {
                 var b = JSON.parse(a);

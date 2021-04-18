@@ -150,25 +150,26 @@
 
     <script>
         function encrypt_func() {
+            // 获取DOM节点
             var format = document.getElementById("format").value;
             var standard = document.getElementById("standard").value;
             var encrypt_out = document.getElementById("encrypt_out").value;
             var miwen = document.getElementById("miwen");
-
             var mingwen = document.getElementById("mingwen").value;
             console.log(mingwen);
-
             var key = document.getElementById("key").value;
             console.log(key);
             var iv = document.getElementById("iv").value;
             console.log(iv);
 
+            // 处理输入数据格式
             if (format === "2") {
                 mingwen = atob(mingwen);
             } else if (format === "3") {
                 mingwen = hex2str(mingwen);
             }
 
+            // 处理加解密标准
             if (standard === "1") {
                 standard = '3DES-CBC';
             } else {
@@ -179,31 +180,33 @@
             var key_style = document.getElementById("key_style").value;
             var iv_style = document.getElementById("iv_style").value;
 
+            // 处理输入密钥格式
             if (key_style === "2") {
                 key = atob(key);
             } else if (key_style === "3") {
                 key = hex2str(key);
             }
+
+            // 处理iv格式
             if (iv_style === "2") {
                 iv = atob(iv);
             } else if (iv_style === "3") {
                 iv = hex2str(iv);
             }
 
-            // var key_length = document.getElementById("key_length").value;
-
+            // 判断iv长度
             if (iv.length !== 8) {
                 alert("iv长度有误！");
                 return;
             }
-            // console.log(key.length);
-            // console.log(key_length);
 
+            // 判断密钥长度
             if (key.length !== 24) {
                 alert("密钥长度有误！");
                 return;
             }
 
+            // 执行加解密
             var cipher = forge.cipher.createCipher(standard, key);
             cipher.start({ iv: iv });
             cipher.update(forge.util.createBuffer(mingwen));
@@ -212,6 +215,7 @@
             var result = encrypted.data;
             console.log(result);
 
+            // 处理输出格式
             if (encrypt_out === "1") {
                 miwen.innerHTML = btoa(result);
             } else {

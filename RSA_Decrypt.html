@@ -124,22 +124,24 @@
 
     <script>
         function decrypt_function() {
+            // 获取DOM节点
             var format = document.getElementById("format").value;
             var standard = 'RSAES-PKCS1-V1_5';
             var decrypt_out = document.getElementById("decrypt_out").value;
             var mingwen = document.getElementById("mingwen");
-
             var miwen = document.getElementById("miwen").value;
             console.log(mingwen);
-
             var miyao = document.getElementById("miyao").value;
             console.log(miyao);
 
+            // 处理输入数据格式
             if (format === "1") {
                 miwen = atob(miwen);
             } else if (format === "2") {
                 miwen = hex2str(miwen);
             }
+
+            // 处理加解密标准
             if (document.getElementById("standard").value === "1") {
                 standard = 'RSAES-PKCS1-V1_5';
             } else {
@@ -150,6 +152,7 @@
             var key;
             var result;
 
+            // 执行加解密
             try {
                 key = forge.pki.privateKeyFromPem(miyao);
                 console.log(key);
@@ -160,6 +163,7 @@
                 return;
             }
 
+            // 处理输出格式
             if (decrypt_out === "1") {
                 mingwen.innerHTML = result;
             } else if (decrypt_out === "2") {

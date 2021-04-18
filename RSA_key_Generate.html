@@ -116,9 +116,11 @@
         function generate() {
             var rsa = forge.pki.rsa;
 
+            // 获取DOM节点
             var bitLength = document.getElementById("bitLength").value;
             console.log(bitLength);
 
+            // 选择密钥长度
             var bitsl = 2048;
             if (bitLength === "1") {
                 bitsl = 512;
@@ -131,20 +133,19 @@
             }
             console.log(bitsl);
 
+            // 执行密钥生成
             var keypair = rsa.generateKeyPair({ bits: bitsl, e: 0x10001 });
             rsa.generateKeyPair({ bits: bitsl, workers: 2 }, function (err, keypair) {
                 // keypair.privateKey, keypair.publicKey
                 var pubk = document.getElementById("pubk");
                 var prik = document.getElementById("prik");
 
-                console.log(keypair.publicKey);
-                console.log(keypair.privateKey);
-
                 pubk.innerHTML = forge.pki.publicKeyToPem(keypair.publicKey);
                 prik.innerHTML = forge.pki.privateKeyToPem(keypair.privateKey);
                 return;
             });
         }
+
     </script>
 </body>
 

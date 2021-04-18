@@ -154,25 +154,26 @@
 
     <script>
         function decrypt_function() {
+            // 获取DOM节点
             var format = document.getElementById("format").value;
             var standard = document.getElementById("standard").value;
             var decrypt_out = document.getElementById("decrypt_out").value;
             var mingwen = document.getElementById("mingwen");
-
             var miwen = document.getElementById("miwen").value;
             console.log(mingwen);
-
             var key = document.getElementById("key").value;
             console.log(key);
             var iv = document.getElementById("iv").value;
             console.log(iv);
 
+            // 处理输入数据格式
             if (format === "1") {
                 miwen = atob(miwen);
             } else if (format === "2") {
                 miwen = hex2str(miwen);
             }
 
+            // 处理加解密标准
             if (standard === "1") {
                 standard = 'AES-CBC';
             } else if (standard === "4") {
@@ -187,12 +188,14 @@
             var key_style = document.getElementById("key_style").value;
             var iv_style = document.getElementById("iv_style").value;
 
+            // 处理输入密钥格式
             if (key_style === "2") {
                 key = atob(key);
             } else if (key_style === "3") {
                 key = hex2str(key);
             }
 
+            // 处理iv格式
             if (iv_style === "2") {
                 iv = atob(iv);
             } else if (iv_style === "3") {
@@ -201,13 +204,13 @@
 
             var key_length = document.getElementById("key_length").value;
 
+            // 判断iv长度
             if (iv.length !== 16) {
                 alert("iv长度有误！");
                 return;
             }
-            // console.log(key.length);
-            // console.log(key_length);
 
+            // 判断密钥长度
             if (key_length === '1') {
                 if (key.length !== 16) {
                     alert("密钥长度有误！");
@@ -225,12 +228,14 @@
                 }
             }
 
+            // 执行加解密
             var decipher = forge.cipher.createDecipher(standard, key);
             decipher.start({ iv: iv });
             decipher.update(forge.util.createBuffer(miwen));
             var res = decipher.finish();
             var result = decipher.output.data;
 
+            // 处理输出格式
             if (decrypt_out === "1") {
                 mingwen.innerHTML = result;
             } else if (decrypt_out === "2") {
